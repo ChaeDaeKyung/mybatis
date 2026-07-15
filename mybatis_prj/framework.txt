@@ -1,0 +1,167 @@
+https://mvnrepository.com/ 에서 필요한 framework이나 library를 pom.xml에 추가해서 사용할 수 있다.
+
+MyBatis 구조
+
+mybatis-config.xml : 환경설정용 파일 (url, driver, 계정 info)
+mapper.xml : SQL문을 정의하는 파일
+
+mybatis framework에서 하는 일
+	1. 설정파일 연결
+		 Reader reader = Resources.getResourceAsReader("설정파일");
+	2. MyBatis Framewordk 생성
+		SqlSessionFactory ssf = new SqlSessionFactoryBuilder().build(reader);
+
+Java에서 하는 일
+	3. MyBatis Handler를 얻기
+		SqlSession ss = ssf.openSession();
+	4. MyBatis Handler를 사용하여 MyBatis 조작
+		ss.insert()
+		ss.update()
+		ss.delete()
+		ss.selectOne()
+		ss.selectList()
+	5. handler 종료
+		ss.close();
+
+mybatis 설정
+	1. web-inf/lib/mybatis-x.jar 배포
+	2. 환경설정용 .xml을 작성(mybatis-config.xml) 
+		=> Driver설정, DB URL, 계정 설정, mapper(쿼리문을 가지고있는 xml)연결
+		properties를 사용한 DB설정파일의 분리.
+	3. Mapper 작성
+		- mapper namespace는 패키지와 같은 의미이다.
+		- select 태그에 id는 유일해야한다.
+		- mapper namespace 안에서의 id 는 유일해야 하고 
+			다른 mapper namespace에서는 같은 id를 사용할 수 있다.
+		
+		<?xml version="1.0" encoding="UTF-8" ?>
+		<!DOCTYPE mapper
+		  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+		<mapper namespace="org.mybatis.example.BlogMapper">
+		  <select id="selectBlog" resultType="Blog">
+		    select * from Blog where id = #{id}
+		  </select>
+		</mapper>
+
+4. MyBatis Framework 사용
+	4-1 Resources : 외부 설정 파일과 연결하는 일.
+		Reader reader = Resources.getResourceAsReader("패키지명/설정파일명.xml");
+	4-2 SqlSessionFactory : SqlSessionFactoryBuilder 의 부모.(가급적이면 싱글턴으로 사용한다.)
+		SqlSessionFactory ssf = new SqlSessionFactoryBuilder().build(reader);
+		SqlSessionFactoryBuilder : 설정파일인 mybatis-config.xml 을 입력 받아서
+								 DB와 연결관리, mappers에 정의된 mapper.xml에
+								 쿼리문을 parsing하여 쿼리문을 실행, 결과를 만들어서 반환한다.
+	4-3 SqlSession : MyBatis Handler이다. MyBatis Framework을 사용하여 DB작업을 수행한다.
+		SqlSession ss = ssf.openSession();
+	
+	5. Handler 사용
+		ss.selectOne(), ss.selectList(), ss.insert(), ss.update(), ss.delete()
+		
+	6. Transaction을 완료
+		ss.commit(), ss.rollback()
+	
+	7. MyBatis Hander 닫기
+		ss.close();
+
+DTD ( Document Type Definition )
+	- ML 에서 사용되는 태그(노드)의 순서, 반복 여부, 속성등을 정의한 파일.
+	- DTD 에서 정의한 노드만 사용할 수 있다.
+	
+	
+기호와 의미
+	, : 태그(노드)는 순서대로 정의하여야 한다.
+	| : 태그(노드)들 중 하나만 정의해야 한다.
+	? : 태그(노드)를 정의하지 않거나 하나만 정의할 수 있다.(0-1)
+	* : 태그(노드)를 정의하지 않거나 여러개 정의할 수 있다.(0-n)
+	+ : 태그(노드)를 하나이상 정의해야 한다.(1-n)
+	
+log
+	- 프로그램의 실행 정보를 파일로 저장하거나, 출력할 목적으로 사용하는 프로그램(logger)
+	- SLF4J, Apache Commons Logging, Log4j 2, Log4j, JDK logging
+	- log는 동작하는 로그레벨이 제공된다.(설정하는 로그 레벨에 따라 로그파일에 풀력되는 정보가 달라진다.)
+	- System.out.println(디버그코드);
+	  => 운영시에 속도의 이슈가 있기때문에 반드시 삭제해야한다.
+	  => 관리가 매우 어렵다.
+	- debugger 사용.
+	- log사용.
+log4j log level
+	(실행 될 때마다 출력) trace < debug < info < warn < error < fatal (심각한 문제가 발생시 출력)
+	사용법)
+		1. 관련 .jar 다운
+			pom.xml에 추가	
+			<!-- Source: https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
+			<dependency>
+			    <groupId>org.apache.logging.log4j</groupId>
+			    <artifactId>log4j-core</artifactId>
+			    <version>2.25.4</version>
+			    <scope>compile</scope>
+			</dependency>
+		
+		2. MyBatis Framework를 사용하는 code에 log method를 추가.
+			org.apache.ibatis.logging.LogFactory.useLog4J2Logging();
+		
+		3. log가 동작하는 설정파일을 작성
+			log4j2.xml 참조
+			%n : 줄변경
+			%d{날짜} : 날짜 출력 패턴
+			%5p : 로그레벨을 5자로 출력
+			%c : class 명 (mapper의 id)
+			%m : 메시지
+			
+		4. class path 최상위에 log설정 파일을 생성
+			- src/main/java에 생성
+			
+		
+Mapper 작성법 : Query 문이 정의 되는 xml
+	Mappers node에 Mapper node는 여래개 만들 수 있다.
+	Mapper의 Content Model 
+		- cache-ref 
+		- cache 
+		- resultMap* 
+		- parameterMap* 
+		- sql* 
+		- insert* 
+		- update* 
+		- delete* 
+		- select*
+	1. 설정파일 ( mybatis-config.xml) 에서 mapper node로 XxxMapper를 연결한다.
+	2. xxxMapper.xml 에서 쿼리문 작성
+	3. MybatisHandler 얻기
+		SqlSession ss = 객체명.getMyBatisHandler();
+	4. Handler사용하여 실행할 퀴룸ㄴ을 가진 node를 찾고 실행.
+		int rowCount = ss.insert("namespace명.id");
+		Mapper는 다르나 같은 id가 존재한다면 에러가 발생하므로 id를 입력시
+		namespace명을 같이 쓰는것을 권장한다.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
