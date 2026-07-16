@@ -114,7 +114,35 @@ log4j log level
 			
 		
 Mapper 작성법 : Query 문이 정의 되는 xml
-	Mappers node에 Mapper node는 여래개 만들 수 있다.
+	
+	1. 설정파일 ( mybatis-config.xml) 에서 mapper node로 XxxMapper를 연결한다.
+	2. xxxMapper.xml 에서 쿼리문 작성
+	3. MybatisHandler 얻기
+		SqlSession ss = 객체명.getMyBatisHandler();
+	4. Handler사용하여 실행할 퀴리문을 가진 node를 찾고 실행.
+		// DTO같은 여러 값을 넣어줄때
+		int rowCount = ss.insert("namespace명.id",값);
+		// parameter가 없을때.
+		int rowCount = ss.insert("namespace명.id");
+		Mapper는 다르나 같은 id가 존재한다면 에러가 발생하므로 id를 입력시
+		namespace명을 같이 쓰는것을 권장한다.
+	
+	//select 일때
+	4. Handler사용하여 실행할 퀴리문을 가진 node를 찾고 실행.
+		//하나의 레코드만 가져올때.
+		DTO dTO = ss.selectOne("아이디",값);
+		//여러개의 레코드를 가져올때.
+	
+	
+Mapper.xml 쿼리문 작성
+	- Mappers node에 Mapper node는 여래개 만들 수 있다.
+	- 사용하는 언어의 데이터형을 그대로 사용이 가능하다.
+	- 외부값 사용시 parameterType 또는 parameterMap을 사용하지만 Map은 권장하지 않는다.
+	- 입력값
+		- #{getter명} : preparedstatment의 바인드변수로 사용된다.
+		- ${getter명} : 입력값이 쿼리문에 직접 표기된다.(컬럼명, 테이블명을 변경하여 사용하는 경우 사용)
+		- 값이 없을 때에는 null이 들어가지 않게 해야한다.(empty는 사용 가능.)
+		
 	Mapper의 Content Model 
 		- cache-ref 
 		- cache 
@@ -122,21 +150,38 @@ Mapper 작성법 : Query 문이 정의 되는 xml
 		- parameterMap* 
 		- sql* 
 		- insert* 
+			 <insert id="아이디" parameterType="외부에서 입력 할 값의 데이터형">
+			 	insert into 테이블명(컬럼명,,,) values( #{ getter명(단일형일때는 아무렇게나 정의한다.) },,, )
+			 </insert>
 		- update* 
+			<update id="아이디" parameterType="외부에서 입력 할 값의 데이터형"> 
+				update 테이블명 
+				set 컬럼명 = #{getter명},,,
+				where 컬럼명 = #{getter명},,,
+			</update>
 		- delete* 
-		- select*
-	1. 설정파일 ( mybatis-config.xml) 에서 mapper node로 XxxMapper를 연결한다.
-	2. xxxMapper.xml 에서 쿼리문 작성
-	3. MybatisHandler 얻기
-		SqlSession ss = 객체명.getMyBatisHandler();
-	4. Handler사용하여 실행할 퀴룸ㄴ을 가진 node를 찾고 실행.
-		int rowCount = ss.insert("namespace명.id");
-		Mapper는 다르나 같은 id가 존재한다면 에러가 발생하므로 id를 입력시
-		namespace명을 같이 쓰는것을 권장한다.
+			<delete id="아이디" parameterType="외부에서 입력 할 값의 데이터형">
+				delete from 테이블명
+				where 컬럼명 = #{getter명},,,
+			</delete>
+		- select* : 레코드 검색
+			<select id="아이디" parameterType="외부에서 입력 할 값의 데이터형" resultType="반환값">
+				select 컬럼명,,,
+				from 테이블명
+				where 컬럼명 = #{ getter명 }
+			</select>
+			
+	예외가 발생하면 SQLException 이 아닌 PersistnceException이 떨어진다.
+	예외 발생시 '부적합한 열 유형 : 1111' 은 발생시 parameter가 없는 경우 발생한다.
 
-
-
-
+Domain, DTO객체를 등록하여 짧은 이름으로 사용하기.
+	- 설정파일 ( mybatis-config.xml)에 <typeAliases>를 선언하고 
+		<typeAlias> 에 등록하여 사용한다.
+	사용법)
+	<typeAliases>
+		<typeAlias type="패키지명.클래스명" alias="객체명(parameterType속성 또는 resultType속성에서 사용할 수 있다.)"/>
+		...
+	</typeAliases>
 
 
 

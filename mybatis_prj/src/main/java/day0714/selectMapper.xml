@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="day0715">
+	<!-- 컬럼하나 한행 조회 
+		 dept테이블에서 입력된 부서번호가 해당하는 
+		 부서의 부서명 (varchar2 => resultType=String) 검색 -->
+	<select id="scsr" parameterType="int" resultType="String">
+		select	dname
+		from	dept
+		where	deptno=#{ deptno }
+	</select>
+	<!-- 컬럼여러개 한행 조회 
+		 emp테이블에서 입력받은 사원번호에 해당하는 사원에 
+		 사원명, 직무, 매니저번호, 입사일, 연봉, 보너스, 부서번호 -->
+	<select id="mcsr" parameterType="int" resultType="empDomain">
+		SELECT	EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO 
+		FROM	EMP 
+		WHERE	EMPNO = #{ empno }
+	</select>
+	<!-- 컬럼하나 여러행 조회 -->
+	<!-- 컬럼여러개 여러행 조회 -->
+	<!-- 작은 값 조회 -->
+	<!-- 큰 값 조회 -->
+	<!-- like 조회 -->
+	<!-- subquery -->
+	<!-- union-->
+	<!-- subquery &amp; join-->
+	<!-- 테이블명이 동적일때-->
+	<!-- 동적 쿼리 if-->
+	<!-- 동적 쿼리 choose-->
+	<!-- 동적 쿼리 set-->
+	<!-- 동적 쿼리 each-->
+</mapper>

@@ -4,23 +4,28 @@
   "https://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<properties resource="properties/database.properties"/>
-		<environments default="development">
-			<environment id="development">
-				<transactionManager type="JDBC"/>
-				<dataSource type="POOLED">
-					<!--  <property name="driver" value="oracle.jdbc.OracleDriver"/>oracle.jdbc.OracleDriver
-					<property name="url" value="jdbc:oracle:thin:@localhost:1521:orcl"/>jdbc:oracle:thin:@localhost:1521:orcl
-					<property name="username" value="scott"/>계정명
-					<property name="password" value="tiger"/>비밀번호 -->
-					<property name="driver" value="${driver}"/>
-					<property name="url" value="${url}"/>
-					<property name="username" value="${username}"/>
-					<property name="password" value="${password}"/>
-				</dataSource>
-			</environment>
-		</environments>
+	<typeAliases>
+		<typeAlias type="kr.co.sist.emp.EmpDomain" alias="empDomain"/>
+	</typeAliases>
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC"/>
+			<dataSource type="POOLED">
+				<!--  <property name="driver" value="oracle.jdbc.OracleDriver"/>oracle.jdbc.OracleDriver
+				<property name="url" value="jdbc:oracle:thin:@localhost:1521:orcl"/>jdbc:oracle:thin:@localhost:1521:orcl
+				<property name="username" value="scott"/>계정명
+				<property name="password" value="tiger"/>비밀번호 -->
+				<property name="driver" value="${driver}"/>
+				<property name="url" value="${url}"/>
+				<property name="username" value="${username}"/>
+				<property name="password" value="${password}"/>
+			</dataSource>
+		</environment>
+	</environments>
 	<mappers>
 		<mapper resource="day0714/testMapper.xml"/>
 		<mapper resource="day0714/testMapper2.xml"/>
+		<mapper resource="day0714/testMapper3.xml"/>
+		<mapper resource="day0714/selectMapper.xml"/>
 	</mappers>
 </configuration>
