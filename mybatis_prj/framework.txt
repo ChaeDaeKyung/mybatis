@@ -85,6 +85,7 @@ log
 	  => 관리가 매우 어렵다.
 	- debugger 사용.
 	- log사용.
+	
 log4j log level
 	(실행 될 때마다 출력) trace < debug < info < warn < error < fatal (심각한 문제가 발생시 출력)
 	사용법)
@@ -147,6 +148,8 @@ Mapper.xml 쿼리문 작성
 		- cache-ref 
 		- cache 
 		- resultMap* 
+			<resultMap id="" type="">
+			</resultMap>
 		- parameterMap* 
 		- sql* 
 		- insert* 
@@ -170,18 +173,49 @@ Mapper.xml 쿼리문 작성
 				from 테이블명
 				where 컬럼명 = #{ getter명 }
 			</select>
+			SqlSession의 selectOne("아이디",값); 메소드 사용
 			
+			//여러행 조회
+			<select id="아이디" parameterType="외부에서 입력 할 값의 데이터형(DTO)" resultType="반환값(Domain)">
+				select	컬럼명,,,
+				from	테이블명
+				where	컬러명 = #{ getter명 }
+			</select>
+			SqlSession의 selectList("아이디",값); 메소드 사용(List 반환)
+			
+			
+			
+예외처리	
 	예외가 발생하면 SQLException 이 아닌 PersistnceException이 떨어진다.
 	예외 발생시 '부적합한 열 유형 : 1111' 은 발생시 parameter가 없는 경우 발생한다.
 
 Domain, DTO객체를 등록하여 짧은 이름으로 사용하기.
 	- 설정파일 ( mybatis-config.xml)에 <typeAliases>를 선언하고 
 		<typeAlias> 에 등록하여 사용한다.
+	- 모든 Mapper 연결 
+		<typeAlias를 정의하면 연결된 모든 Mapper들은 alias를 사용할 수 있다.
 	사용법)
 	<typeAliases>
 		<typeAlias type="패키지명.클래스명" alias="객체명(parameterType속성 또는 resultType속성에서 사용할 수 있다.)"/>
 		...
 	</typeAliases>
+
+DTO : 외부에서 값을 서버에 넣을때 사용
+Domain : 서버에서 나온 결과값을 저장할때 사용
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

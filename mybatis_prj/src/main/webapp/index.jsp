@@ -34,8 +34,8 @@ a:hover {
 SelectTestDTO[] stArr ={
 						new SelectTestDTO("day0715/scsr","컬럼하나 한행 조회"),
 						new SelectTestDTO("day0715/mcsr","컬럼여러개 한행 조회"),
-						new SelectTestDTO("day0715/scmr","컬럼하나 여러행 조회"),
-						new SelectTestDTO("day0715/mcmr","컬럼여러개 여러행 조회"),
+						new SelectTestDTO("day0716/scmr","컬럼하나 여러행 조회"),
+						new SelectTestDTO("day0716/mcmr","컬럼여러개 여러행 조회"),
 						new SelectTestDTO("lt","작은 값 조회"),
 						new SelectTestDTO("gt","큰 값 조회"),
 						new SelectTestDTO("like","like 조회"),

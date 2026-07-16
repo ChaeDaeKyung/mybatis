@@ -2,6 +2,8 @@ package test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.List;
+
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -11,6 +13,7 @@ import day0714.TestDAO;
 import day0715.NewsDTO;
 import day0715.SelectDAO;
 import day0715.UseMapperDAO;
+import day0716.SelectDAO2;
 import kr.co.sist.dao.MyBatisHandler;
 
 class MyBatisTest {
@@ -76,6 +79,7 @@ class MyBatisTest {
 		System.out.println(cnt+": 실패와 성공=============");
 	}// updateNews
 	
+	@Disabled
 	@Test
 	@DisplayName("select 쿼리 test")
 	void selectTest() {
@@ -86,5 +90,20 @@ class MyBatisTest {
 		 */
 		assertNotNull(sDAO.mcsr(7521));
 	}// selectTest
+	
+	@Test
+	@DisplayName("selectList 쿼리 test")
+	void selectListTest() {
+		SelectDAO2 sDAO = SelectDAO2.getInstance();
+		//List<Integer> list = sDAO.scmr(31);
+		//assertEquals(list.size(),0);//오차범위로 테스트도 할 수 있다.
+		
+		//예외로 사용
+		assertDoesNotThrow(()->{
+			sDAO.scmr(11);
+		});
+		
+	}// selectListTest
+	
 	
 }// testClass

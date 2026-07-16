@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wanderlog - 공지사항 디자인 시안</title>
+    <!-- 정갈한 산세리프 본고딕 폰트 적용 -->
+    <link rel="stylesheet" href="https://googleapis.com">
+    <style>
+        /* Wanderlog 디자인 가이드 테마 시스템 변수 */
+        :root {
+            --bg-color: #FFFFFF;
+            --primary-text: #111111;
+            --secondary-text: #767676;
+            --muted-text: #999999;
+            --accent-color: #FF5A5F; /* 상단 회원가입 버튼의 다홍색 매칭 */
+            --border-color: #EEEEEE;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Noto Sans KR', sans-serif;
+            letter-spacing: -0.02em;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--primary-text);
+        }
+
+        /* GNB 영역 */
+        header {
+            width: 100%;
+            height: 80px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 8%;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--accent-color);
+            cursor: pointer;
+        }
+
+        .gnb-menu {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+        }
+
+        .gnb-menu a {
+            text-decoration: none;
+            color: #555555;
+            font-size: 15px;
+            font-weight: 400;
+        }
+
+        .auth-menu {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            font-size: 14px;
+        }
+
+        .auth-menu .login {
+            color: var(--secondary-text);
+            text-decoration: none;
+        }
+
+        .auth-menu .signup {
+            background-color: var(--accent-color);
+            color: #FFFFFF;
+            padding: 8px 18px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* 타이틀 영역 */
+        .hero-section {
+            text-align: center;
+            padding: 100px 0 50px 0;
+        }
+
+        .hero-title {
+            font-size: 38px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--primary-text);
+        }
+
+        .hero-subtitle {
+            font-size: 15px;
+            color: var(--secondary-text);
+        }
+
+        /* 카테고리 필터 탭 */
+        .filter-container {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 60px;
+        }
+
+        .tab-btn {
+            background: none;
+            border: 1px solid #E5E5E5;
+            padding: 10px 24px;
+            font-size: 14px;
+            color: var(--secondary-text);
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .tab-btn.active, .tab-btn:hover {
+            background-color: var(--accent-color);
+            color: #FFFFFF;
+            border-color: var(--accent-color);
+        }
+
+        /* 공지사항 테이블 리스트 */
+        .notice-wrapper {
+            max-width: 1100px;
+            margin: 0 auto 80px auto;
+            padding: 0 20px;
+        }
+
+        .table-header {
+            display: flex;
+            border-bottom: 2px solid var(--primary-text);
+            padding-bottom: 15px;
+            font-weight: 500;
+            font-size: 15px;
+            color: var(--primary-text);
+        }
+
+        .notice-row {
+            display: flex;
+            align-items: center;
+            height: 76px;
+            border-bottom: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .notice-row:hover {
+            background-color: #FBFBFB;
+        }
+
+        /* 컬럼 가로 비율 */
+        .col-type { width: 12%; text-align: left; padding-left: 10px; }
+        .col-title { width: 73%; text-align: left; font-weight: 500; color: #222222; }
+        .col-date { width: 15%; text-align: right; padding-right: 10px; color: var(--muted-text); font-size: 14px; }
+
+        .tag-box {
+            color: var(--secondary-text);
+            font-size: 14px;
+        }
+
+        /* 페이지네이션 */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-top: 50px;
+        }
+
+        .page-link {
+            text-decoration: none;
+            color: var(--muted-text);
+            font-size: 15px;
+            padding: 5px 10px;
+        }
+
+        .page-link.active {
+            color: var(--primary-text);
+            font-weight: 700;
+            border-bottom: 2px solid var(--primary-text);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 상단 네비게이션 헤더 -->
+    <header>
+        <div class="logo">wanderlog</div>
+        <ul class="gnb-menu">
+            <li><a href="#">일정 추가</a></li>
+            <li><a href="#">일정을 친구와 함께</a></li>
+            <li><a href="#">다른 사람의 일정 구경하기</a></li>
+        </ul>
+        <div class="auth-menu">
+            <a href="#" class="login">로그인</a>
+            <a href="#" class="signup">회원가입</a>
+        </div>
+    </header>
+
+    <!-- 중앙 타이틀 색감 섹션 -->
+    <div class="hero-section">
+        <h1 class="hero-title">공지사항</h1>
+        <p class="hero-subtitle">원더로그의 새로운 기능 업데이트와 서비스 소식을 전해드립니다.</p>
+    </div>
+
+    <!-- 카테고리 필터 탭 시스템 -->
+    <div class="filter-container">
+        <button class="tab-btn active">전체</button>
+        <button class="tab-btn">서비스 안내</button>
+        <button class="tab-btn">시스템 점검</button>
+        <button class="tab-btn">이벤트 소식</button>
+    </div>
+
+    <!-- 공지사항 리스트 보드 -->
+    <div class="notice-wrapper">
+        <div class="table-header">
+            <div class="col-type">분류</div>
+            <div class="col-title">제목</div>
+            <div class="col-date">작성일</div>
+        </div>
+
+        <div class="notice-row">
+            <div class="col-type"><span class="tag-box">[안내]</span></div>
+            <div class="col-title">구글 맵 트래픽 실시간 연동 및 동선 최적화 알고리즘 업데이트 완료</div>
+            <div class="col-date">2026.07.15</div>
+        </div>
+
+        <div class="notice-row">
+            <div class="col-type"><span class="tag-box">[점검]</span></div>
+            <div class="col-title">데이터베이스 서버 이중화 작업을 위한 시스템 정기 점검 안내 (02:00 ~ 06:00)</div>
+            <div class="col-date">2026.07.10</div>
+        </div>
+
+        <div class="notice-row">
+            <div class="col-type"><span class="tag-box">[이벤트]</span></div>
+            <div class="col-title">"내가 만든 인생 코스는?" 최고의 여름 휴가 가이드북 투표 이벤트 오픈</div>
+            <div class="col-date">2026.07.01</div>
+        </div>
+
+        <div class="notice-row">
+            <div class="col-type"><span class="tag-box">[안내]</span></div>
+            <div class="col-title">Wanderlog 친구 초대 및 이메일 동시 편집 기능 안정성 개선 완료</div>
+            <div class="col-date">2026.06.25</div>
+        </div>
+
+        <div class="notice-row">
+            <div class="col-type"><span class="tag-box">[안내]</span></div>
+            <div class="col-title">개인정보 처리방침 및 사용자 서비스 이용약관 일부 개정 안내</div>
+            <div class="col-date">2026.06.18</div>
+        </div>
+
+        <!-- 하단 인덱스 넘버링 -->
+        <div class="pagination">
+            <a href="#" class="page-link">&lt;</a>
+            <a href="#" class="page-link active">1</a>
+            <a href="#" class="page-link">2</a>
+            <a href="#" class="page-link">3</a>
+            <a href="#" class="page-link">4</a>
+            <a href="#" class="page-link">&gt;</a>
+        </div>
+    </div>
+
+</body>
+</html>
