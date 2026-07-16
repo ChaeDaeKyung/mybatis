@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wanderlog - 모달 팝업 시안</title>
+    <link rel="stylesheet" href="https://googleapis.com">
+    <style>
+        :root {
+            --bg-color: #FFFFFF;
+            --primary-text: #111111;
+            --secondary-text: #767676;
+            --accent-color: #FF5A5F; /* 원더로그 시그니처 다홍색 */
+            --btn-cancel-bg: #F5F5F5;
+            --btn-cancel-text: #555555;
+        }
+
+        body {
+            background-color: #EFEFEF; /* 팝업 확인을 위한 배경 그레이 처리 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Noto Sans KR', sans-serif;
+            letter-spacing: -0.02em;
+        }
+
+        /* 팝업 카드 메인 컨테이너 */
+        .modal-card {
+            background-color: var(--bg-color);
+            width: 420px;
+            padding: 40px 32px 32px 32px;
+            border-radius: 20px; /* 부드럽고 트렌디한 라운드 */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            position: relative;
+        }
+
+        /* 우측 상단 닫기 버튼 */
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 20px;
+            color: #BBBBBB;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        .close-btn:hover {
+            color: var(--primary-text);
+        }
+
+        /* 상단 그래픽 영역 (투박한 삼색 아이콘을 세련된 그래픽으로 대체) */
+        .icon-area {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        /* 미니멀한 라인 캘린더 아이콘 시뮬레이션 */
+        .calendar-box {
+            width: 48px;
+            height: 48px;
+            border: 2px solid #E0E0E0;
+            border-radius: 10px;
+            position: relative;
+        }
+        .calendar-box::before {
+            content: '';
+            position: absolute;
+            top: 10px; left: 0; right: 0;
+            height: 2px; background-color: #E0E0E0;
+        }
+        
+        /* 타겟 캘린더 (포인트 컬러 적용) */
+        .calendar-box.target {
+            border-color: var(--accent-color);
+            background-color: #FFF5F5;
+        }
+        .calendar-box.target::before {
+            background-color: var(--accent-color);
+        }
+
+        .arrow-icon {
+            font-size: 20px;
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        /* 텍스트 영역 */
+        .modal-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary-text);
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+
+        .modal-desc {
+            font-size: 14px;
+            color: var(--secondary-text);
+            margin-bottom: 32px;
+        }
+
+        /* 버튼 그룹 */
+        .btn-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            flex: 1;
+            height: 52px;
+            border: none;
+            border-radius: 12px; /* 카드의 곡률과 조화를 이루는 라운드 */
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        /* 취소 버튼 */
+        .btn-cancel {
+            background-color: var(--btn-cancel-bg);
+            color: var(--btn-cancel-text);
+        }
+        .btn-cancel:hover {
+            background-color: #EAEAEA;
+        }
+
+        /* 가져오기(확인) 버튼 */
+        .btn-submit {
+            background-color: var(--accent-color);
+            color: #FFFFFF;
+        }
+        .btn-submit:hover {
+            background-color: #E04F54;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="modal-card">
+        <button class="close-btn">&times;</button>
+        
+        <!-- 상단 미니멀 아이콘 배치 -->
+        <div class="icon-area">
+            <div class="calendar-box"></div>
+            <div class="arrow-icon">⟶</div>
+            <div class="calendar-box target"></div>
+        </div>
+
+        <!-- 계층화된 텍스트 카피 -->
+        <h2 class="modal-title">일정을 나의 일정에<br>가져오시겠습니까?</h2>
+        <p class="modal-desc">선택하신 일정이 내 여행 타임라인에 추가됩니다.</p>
+
+        <!-- 정돈된 버튼 레이아웃 -->
+        <div class="btn-group">
+            <button class="btn btn-cancel">취소</button>
+            <button class="btn btn-submit">가져오기</button>
+        </div>
+    </div>
+
+</body>
+</html>
