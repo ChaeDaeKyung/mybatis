@@ -28,5 +28,6 @@
 		<mapper resource="day0714/testMapper3.xml"/>
 		<mapper resource="day0714/selectMapper.xml"/>
 		<mapper resource="day0716/selectMapper2.xml"/>
+		<mapper resource="day0720/selectMapper3.xml"/>
 	</mappers>
 </configuration>

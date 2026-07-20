@@ -14,6 +14,7 @@ import day0715.NewsDTO;
 import day0715.SelectDAO;
 import day0715.UseMapperDAO;
 import day0716.SelectDAO2;
+import day0720.SelectDAO3;
 import kr.co.sist.dao.MyBatisHandler;
 
 class MyBatisTest {
@@ -91,6 +92,7 @@ class MyBatisTest {
 		assertNotNull(sDAO.mcsr(7521));
 	}// selectTest
 	
+	@Disabled
 	@Test
 	@DisplayName("selectList 쿼리 test")
 	void selectListTest() {
@@ -105,5 +107,15 @@ class MyBatisTest {
 		
 	}// selectListTest
 	
+	@Test
+	void selectListTest2() {
+		SelectDAO3 sDAO = SelectDAO3.getInstance();
+		assertDoesNotThrow(()->{
+//			System.out.println(sDAO.mcmr());
+//			System.out.println(sDAO.lessThan(3000));
+			System.out.println(sDAO.greaterThan(1000));
+		});
+		
+	}
 	
 }// testClass

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="day0716">
+	<!-- resultMap : 조회컬럼과 setter method를 미리 연결 시켜주는 설정. -->
+	<resultMap type="empDomain" id="empDomainMap">
+		<result column="EMPNO" property="empno"/>
+		<result column="ENAME" property="ename"/>
+		<result column="JOB" property="job"/>
+		<result column="SAL" property="sal"/>
+		<result column="MGR" property="mgr"/>
+		<result column="HIREDATE" property="hiredate"/>
+		<result column="DEPTNO" property="deptno"/>
+		<result column="HIREDATESTR" property="hiredateStr"/>
+	</resultMap>
+
+	<!-- 컬럼여러개 여러행 조회
+		 사원 테이블에 모든 사원정보를 검색 -->
+	<select id="mcmr" resultMap="empDomainMap">
+		select	empno,ename,job,mgr,hiredate,sal,comm,deptno, to_char(hiredate,'yyyy-mm-dd') "hiredateStr"
+		from	emp	
+	</select>	
+	
+
+	<!-- 중복 쿼리문의 처리 -->
+	<sql id="dupQuery">
+		select	empno, ename, hiredate, sal
+		from	emp
+		where sal
+	</sql>
+	
+	<!-- 작은 값 조회
+		 사원 테이블에서 입력받은 연봉보다 적게 수령하는 사원들의 사원번호, 사원명, 입사일, 연봉을 검색 -->
+	<resultMap type="empDomain" id="lessThanMap">
+		<result column="EMPNO" property="empno"/>
+		<result column="ENAME" property="ename"/>
+		<result column="HIREDATE" property="hiredate"/>
+		<result column="SAL" property="sal"/>
+	</resultMap>
+	<select id="lessThan" parameterType="int" resultMap="lessThanMap">
+		<![CDATA[
+		select	empno, ename, hiredate, sal
+		from	emp
+		where sal < #{ sal }
+		]]>
+	</select>
+	
+	<!-- 큰 값 조회
+		 사원 테이블에서 입력받은 연봉을 초과하는 사원들의 사원번호, 사원명, 입사일, 연봉을 검색
+		 > 는 XML 작석 규칙상 앞에 공백을 허용하므로 error가 발생하지 않는다. 
+		 (CDATA section을 정의하지 않아도 사용할 수 있다.) -->
+	<select id="greaterThan" parameterType="int" resultMap="lessThanMap">
+		<!-- 중복 쿼리문을 <sql> 노드에 넣어서 사용 할수 있다. -->
+		select	empno, ename, hiredate, sal
+		from	emp
+		where sal > #{ sal }
+	</select>
+	<!-- like 조회 -->
+	<!-- subquery -->
+	<!-- union-->
+	<!-- subquery &amp; join-->
+	<!-- 테이블명이 동적일때-->
+	<!-- 동적 쿼리 if-->
+	<!-- 동적 쿼리 choose-->
+	<!-- 동적 쿼리 set-->
+	<!-- 동적 쿼리 each-->
+</mapper>

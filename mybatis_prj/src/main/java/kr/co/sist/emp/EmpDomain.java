@@ -11,7 +11,7 @@ import lombok.ToString;
 @ToString
 
 public class EmpDomain {
-	private int empno, sal, comm, mgr, deptno;
-	private String ename, job;
+	private int empno, sal, comm, mgr, deptno ;
+	private String ename, job,hiredateStr ;
 	private Date hiredate;			
 }// class

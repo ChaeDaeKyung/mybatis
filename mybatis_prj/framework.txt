@@ -183,7 +183,32 @@ Mapper.xml 쿼리문 작성
 			</select>
 			SqlSession의 selectList("아이디",값); 메소드 사용(List 반환)
 			
+			resultMap 사용
+				- 조회 컬럼과 setter method를 개발자가 미리 연결시켜주는 것.
+			<resultMap id="아이디" type="DTO or Domain">
+				<result column="컬럼명" property="setter명"/> (set을 제외한 method명을 소문자로 사용)
+			</resultMap>
+			<select id="아이디" parameterType="외부에서 입력 할 값의 데이터형(DTO)" resultMap="resultMap의 아이디">
+				select	컬럼명,,,
+				from	테이블명
+				where	컬러명 = #{ getter명 }
+			</select>
 			
+	중복 쿼리문 줄이기
+		- Mapper.xml에 정의
+		- 모든쿼리문을 정의하고 사용할 수 있다.
+		1. 중복쿼리문을 <sql> node에 정의
+		<sql id="아이디">
+			중복되는 쿼리문
+		</sql>
+		2. 쿼리문이 필요한 곳에서 include 하기
+		<include refid="아이디"/>
+			
+	< 의 조회
+		- XML작성 규칙상 <(&lt;를 사용해야 한다.) 뒤에는 공백없이 노드명이 나와야 한다.
+		- XML은 문서에서 에러가 발생하면 parsing이 되지 않는다.
+		문제 해결 : 특수문자 사용 (&lt; (<) , &gt; (>) )
+			-> 직관적이 안아서 CDATA section사용 ( <![CDATA[ 단순문자열로 인식 ]]> )			
 			
 예외처리	
 	예외가 발생하면 SQLException 이 아닌 PersistnceException이 떨어진다.
@@ -202,7 +227,7 @@ Domain, DTO객체를 등록하여 짧은 이름으로 사용하기.
 
 DTO : 외부에서 값을 서버에 넣을때 사용
 Domain : 서버에서 나온 결과값을 저장할때 사용
-
+	- column명과 domain의 이름이 다르면 조회 column에 alisa를 사용하여 이름을 동일하게 해준다.
 
 
 
