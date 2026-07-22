@@ -38,15 +38,13 @@ SelectTestDTO[] stArr ={
 						new SelectTestDTO("day0720/mcmr","컬럼여러개 여러행 조회"),
 						new SelectTestDTO("day0720/lt","작은 값 조회"),
 						new SelectTestDTO("day0720/gt","큰 값 조회"),
-						new SelectTestDTO("like","like 조회"),
-						new SelectTestDTO("subquery","subquery"),
-						new SelectTestDTO("union","union"),
-						new SelectTestDTO("subqueryJoin","subquery &amp; join"),
-						new SelectTestDTO("dynamincTable","테이블명이 동적일때"),
-						new SelectTestDTO("dynaminIf","동적 쿼리 if"),
-						new SelectTestDTO("dynaminChoose","동적 쿼리 choose"),
-						new SelectTestDTO("dynaminSet","동적 쿼리 set"),
-						new SelectTestDTO("dynaminEach","동적 쿼리 each")
+						new SelectTestDTO("day0721/like","like 조회"),
+						new SelectTestDTO("day0721/subqueryJoin","subquery &amp; join"),
+						new SelectTestDTO("day0722/dynamicTable","테이블명이 동적일때"),
+						new SelectTestDTO("day0722/dynamicIf","동적 쿼리 if"),
+						new SelectTestDTO("day0722/dynamicChoose","동적 쿼리 choose"),
+						new SelectTestDTO("dynamicSet","동적 쿼리 set"),
+						new SelectTestDTO("dynamicEach","동적 쿼리 each")
 					   };
 pageContext.setAttribute("stArr", stArr);
 %>
@@ -61,6 +59,9 @@ pageContext.setAttribute("stArr", stArr);
 	</div>
 	<div id="selectContent">
 		<c:if test="${ not empty param.page }">
+			<c:if test="${ param.page eq 'day0721/subqueryJoin' }">
+				<c:redirect url="day0721/subqueryJoin.jsp"/>
+			</c:if>
 			<c:import url="${ param.page }.jsp"/>
 		</c:if>
 	</div>

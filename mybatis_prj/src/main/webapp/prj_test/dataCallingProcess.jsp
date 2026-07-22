@@ -5,6 +5,8 @@
 <%
 
 DataCallingService dcs = DataCallingService.getInstance();
-pageContext.setAttribute("serviceKey", dcs.getKey());
+pageContext.setAttribute("getParam", dcs.getKey());
+
+
 
 %>

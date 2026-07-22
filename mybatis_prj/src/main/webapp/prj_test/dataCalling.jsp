@@ -11,7 +11,7 @@
 %>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script type="text/javascript">
-var param ="serviceKey=ceff4a7504433bce8e4c7813de6dd3c739dfbdaa267c70afc132a0c7e0fff968&numOf&Rows=10&pageNo=1&MobileOS=ETC&MobileApp=TestApp&_type=json";
+var param ="serviceKey=serviceKey&numOfRows=10&pageNo=1&MobileOS=AND&MobileApp=appName";
 
 $.ajax({
 	url: "http://apis.data.go.kr/B551011/KorService2/areaCode2",

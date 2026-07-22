@@ -15,6 +15,11 @@ import day0715.SelectDAO;
 import day0715.UseMapperDAO;
 import day0716.SelectDAO2;
 import day0720.SelectDAO3;
+import day0721.SelectDAO4;
+import day0722.SelectDAO5;
+import kr.co.sist.board.BoardDAO;
+import kr.co.sist.board.BoardDomain;
+import kr.co.sist.board.RangeDTO;
 import kr.co.sist.dao.MyBatisHandler;
 
 class MyBatisTest {
@@ -107,6 +112,7 @@ class MyBatisTest {
 		
 	}// selectListTest
 	
+	@Disabled
 	@Test
 	void selectListTest2() {
 		SelectDAO3 sDAO = SelectDAO3.getInstance();
@@ -116,6 +122,63 @@ class MyBatisTest {
 			System.out.println(sDAO.greaterThan(1000));
 		});
 		
+	}//selectListTest2
+	
+	@Disabled
+	@DisplayName("like 쿼리문 테스트")
+	@Test
+	void selectLikeTest() {
+		SelectDAO4 sDAO = SelectDAO4.getInstance();
+		
+		assertDoesNotThrow(()->{
+			//sDAO.like("오늘은");
+//			sDAO.selectMaker("수입");
+			sDAO.selectCar("아반테");
+		});
+		
+	}//selectLikeTest
+	
+	
+	@Test
+	void selectTableNameTest() {
+		SelectDAO5 sDAO = SelectDAO5.getInstance();
+		assertDoesNotThrow(()->{
+			//sDAO.selectAllDept("cp_dept");
+			CpDept cd = new CpDept();
+			cd.setDeptno(10);
+			cd.setDname("개발");
+			cd.setLoc("서울");
+			//sDAO.insert(cd);
+//			sDAO.dynamicIf(cd);
+			sDAO.dynamicChoose(1);
+		});
 	}
+	
+	@Disabled
+	@DisplayName("게시판 테스트")
+	@Test
+	void boardTest() {
+		BoardDAO bDAO = BoardDAO.getInstance();
+		assertDoesNotThrow(()->{
+//			RangeDTO rDTO = new RangeDTO();
+//			rDTO.setFieldNum("1");
+//			rDTO.setKeyword("오늘은");
+//			bDAO.selectTotalCount(rDTO);
+//			bDAO.selectBoard(rDTO);
+//			bDAO.selectBoardDetail(1);
+//			bDAO.updateCnt(2);
+//			BoardDomain bd = new BoardDomain();
+//			bd.setNum(2);
+//			bd.setId("test");
+//			bd.setTitle("아 비가 오네 젠장");
+//			bd.setContent("안온다고 했는데 개많이 옴");
+//			bd.setIp("192.168.10.79");
+//			bd.setUpfile("test.png");
+//			bDAO.insertBoard(bd);
+//			bDAO.updateBoard(bd);
+//			bDAO.deleteBoard(bd);
+		});
+	}
+	
 	
 }// testClass

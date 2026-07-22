@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="day0722">
+	<!-- 테이블명이나 컬럼명이 동적일때
+		 본사(dept) 지사 (cp_dept)의 모든 부서 정보를 검색하는 쿼리문 작성 -->
+	<select id="dollarSign" parameterType="String" resultType="cpDeptDomain">
+		select	deptno, dname, loc
+		from 	${ tableName }
+	</select>
+	
+	<insert id="dollarSign2" parameterType="cpDeptDTO">
+		insert into cp_dept(deptno, dname, loc)
+		values(${ deptno },'${ dname }','${ loc }')
+	</insert>
+	
+	<!-- 동적 쿼리 if : 부서번호가 입력되어 0이 아니면 해당 부서의 사원을 검색하고
+			그렇지 않으면 모든 부서의 사원 검색 -->
+	<select id="dynamicIf" parameterType="cpDeptDTO" resultType="empDomain">
+		select	empno, ename, deptno
+		from 	emp
+		<where>
+			<if test="deptno neq 0">
+				deptno = #{deptno}
+			</if>
+		</where>
+	</select>
+
+	<!-- 동적 쿼리 choose
+		입력값이 1이면 10번부서 사원 정보 검색
+		입력값이 2이면 20번부서 사원 정보 검색
+		그렇지 않으면 30번부서 사원 정보 검색 -->
+	<select id="dynamicChoose" parameterType="int" resultType="empDomain">
+		select	empno, ename, deptno
+		from 	emp
+		<where>
+			<choose>
+				<when test="deptno eq 1">
+					deptno = 10
+				</when>
+				<when test="deptno eq 2">
+					deptno = 20
+				</when>
+				<otherwise>
+					deptno = 30
+				</otherwise>
+			</choose>
+		</where>
+	</select>
+	<!-- 동적 쿼리 set-->
+	<!-- 동적 쿼리 each-->
+</mapper>

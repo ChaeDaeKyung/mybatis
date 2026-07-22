@@ -6,6 +6,13 @@
 	<properties resource="properties/database.properties"/>
 	<typeAliases>
 		<typeAlias type="kr.co.sist.emp.EmpDomain" alias="empDomain"/>
+		<typeAlias type="day0721.BoardDomain" alias="boardDomain"/>
+		<typeAlias type="day0721.CarDomain" alias="carDomain"/>
+		<typeAlias type="day0714.CpDept" alias="cpDeptDomain"/>
+		<typeAlias type="day0714.CpDept" alias="cpDeptDTO"/>
+		<typeAlias type="kr.co.sist.board.BoardDomain" alias="boardDomain2"/>
+		<typeAlias type="kr.co.sist.board.BoardDomain" alias="boardDTO"/>
+		<typeAlias type="kr.co.sist.board.RangeDTO" alias="rangeDTO"/>
 	</typeAliases>
 	<environments default="development">
 		<environment id="development">
@@ -29,5 +36,9 @@
 		<mapper resource="day0714/selectMapper.xml"/>
 		<mapper resource="day0716/selectMapper2.xml"/>
 		<mapper resource="day0720/selectMapper3.xml"/>
+		<mapper resource="day0721/selectMapper4.xml"/>
+		<mapper resource="day0722/selectMapper5.xml"/>
+		<!-- 게시판 -->
+		<mapper resource="kr/co/sist/board/boardMapper.xml"/>
 	</mappers>
 </configuration>

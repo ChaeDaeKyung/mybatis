@@ -1,0 +1,9 @@
+<%@page import="day0721.SearchCarService"%>
+<%@ page language="java" contentType="application/json; charset=UTF-8"
+    pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
+<%
+String model = request.getParameter("model");
+SearchCarService scs = SearchCarService.getInstance();
+out.print(scs.searchCar(model));
+
+%>

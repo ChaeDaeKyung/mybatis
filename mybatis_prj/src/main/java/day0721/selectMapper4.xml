@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="day0721">
+	<!-- resultMap : 조회컬럼과 setter method를 미리 연결 시켜주는 설정. -->
+	<resultMap type="boardDomain" id="boardResult">
+		<result column="NUM" property="num"/>
+		<result column="ID" property="id"/>
+		<result column="TITLE" property="title"/>
+		<result column="UPFILE" property="upfile"/>
+		<result column="INPUT_DATE" property="inputDate"/>
+		<result column="IP" property="ip"/>
+		<result column="CNT" property="cnt"/>
+	</resultMap>
+
+	<!-- like 조회
+		 board 테이블에서 입력값을 포함하는 제목에 대한 게시글을 검색 -->
+	<select id="like" parameterType="String" resultMap="boardResult">
+		<![CDATA[
+			select num, id, title, upfile, input_date, ip, cnt
+			from board
+			where title like '%'||#{ title }||'%'
+		]]>
+	</select>
+	<!-- subquery &amp; join -->
+	<!-- 제조국에 대한 제조사 검색 : 컬럼하나에 여러행 조회-->
+	<select id="selectMaker" parameterType="String" resultType="String">
+		select	maker
+		from	car_country
+		where	country = #{ country }
+	</select>
+ 	<!-- 제조사에 대한 모델검색 -->
+ 	<select id="selectModel" parameterType="String" resultType="String">
+		select	model
+		from	car_maker
+		where	maker = #{ maker }
+	</select>
+	<!-- 모델에 대한 상세 모델 검색
+		 선택한 모델에 가장 최근 입력 모델부터 10건만 검색 -->
+	<resultMap type="carDomain" id="carResult">
+		<result column="MAKER" property="maker"/>
+		<result column="MODEL" property="model"/>
+		<result column="CAR_YEAR" property="carYear"/>
+		<result column="CAR_IMG" property="carImg"/>
+		<result column="PRICE" property="price"/>
+		<result column="CC" property="cc"/>
+		<result column="INPUT_DATE" property="inputDate"/>
+	</resultMap>
+	<select id="selectCar" parameterType="String" resultMap="carResult">
+		select maker, model, car_year, price, cc, car_img, hiredate input_date
+		from(select  cma.maker, cma.MODEL, cmo.CAR_YEAR, cmo.PRICE, cmo.CC, cmo.CAR_OPTION, cmo.CAR_IMG, cmo.HIREDATE, row_number() over(order by hiredate desc) r_num
+				 from 		car_maker cma, car_model cmo
+				 where  (cmo.model = cma.model) and cma.model = #{ model })
+		where r_num between 1 and 10
+	</select>
+	
+	
+	<!-- 테이블명이 동적일때-->
+	<!-- 동적 쿼리 if-->
+	<!-- 동적 쿼리 choose-->
+	<!-- 동적 쿼리 set-->
+	<!-- 동적 쿼리 each-->
+</mapper>
