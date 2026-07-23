@@ -13,6 +13,9 @@
 		<typeAlias type="kr.co.sist.board.BoardDomain" alias="boardDomain2"/>
 		<typeAlias type="kr.co.sist.board.BoardDomain" alias="boardDTO"/>
 		<typeAlias type="kr.co.sist.board.RangeDTO" alias="rangeDTO"/>
+		<typeAlias type="day0723.WebMemberDomain" alias="webMemberDomain"/>
+		<typeAlias type="day0723.WebMemberDTO" alias="webMemberDTO"/>
+		<typeAlias type="day0723.TransactionDTO" alias="transactionDTO"/>
 	</typeAliases>
 	<environments default="development">
 		<environment id="development">
@@ -38,6 +41,7 @@
 		<mapper resource="day0720/selectMapper3.xml"/>
 		<mapper resource="day0721/selectMapper4.xml"/>
 		<mapper resource="day0722/selectMapper5.xml"/>
+		<mapper resource="day0723/selectMapper6.xml"/>
 		<!-- 게시판 -->
 		<mapper resource="kr/co/sist/board/boardMapper.xml"/>
 	</mappers>

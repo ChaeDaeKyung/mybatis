@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="day0723">
+	<!-- 동적 쿼리 set -->
+	<!-- 회원 정보 검색 -->
+	<select id="selectMember" parameterType="String" resultType="webMemberDomain">
+		SELECT NAME, EMAIL, PHONE, ZIPCODE, ADDRESS, ADDRESS2, IP, INPUTDATE 
+		FROM WEB_MEMBER 
+		WHERE ID = #{ id }
+	</select>
+	
+	<!--  webMember테이블에서 회원에 아이디에 해당하는 
+		비밀번호(값이 없을 수도 있고 있다면 변경 ), 이름, 이메일, 전화번호, 우편번호, 주소, 상세주소 를 변경 -->
+	<update id="updateMember" parameterType="webMemberDTO">
+		UPDATE WEB_MEMBER 
+		<set>
+			<if test="password neq null and password neq ''">
+				PASSWORD=#{ password }, 
+			</if>
+			NAME=#{ name }, EMAIL=#{ email }, PHONE= #{ phone }, 
+			ZIPCODE = #{ zipcode }, ADDRESS = #{ address }, ADDRESS2 = #{ address2 }
+		</set>
+		<where>
+			ID = #{ id }
+		</where>
+	</update>
+	<!-- 동적 쿼리 each : webMember테이블에서 회원에 아이디에 해당하는 -->
+	<select id="selectAllEmpno" resultType="String">
+		select 	empno
+		from 	emp
+	</select>
+	<select id="selectEmp" parameterType="map" resultType="empDomain">
+		select	empno, ename, deptno
+		from emp
+		<where>
+			empno in
+			<foreach open="(" item="empno" separator="," close=")" collection="empnoArr">
+				#{ empno }
+			</foreach>
+		</where>
+	</select>
+	<!-- 트랜잭션 처리 -->
+	<insert id="transaction" parameterType="transactionDTO">
+		insert into TEST_TRANSACTION (NAME, ADDR) 
+		values(#{ name }, #{ addr })
+	</insert>
+	<insert id="transaction2" parameterType="transactionDTO">
+		insert into TEST_TRANSACTION2 (NAME, ADDR) 
+		values(#{ name }, #{ addr })
+	</insert>
+</mapper>

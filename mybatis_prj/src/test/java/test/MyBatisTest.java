@@ -17,6 +17,8 @@ import day0716.SelectDAO2;
 import day0720.SelectDAO3;
 import day0721.SelectDAO4;
 import day0722.SelectDAO5;
+import day0723.SelectDAO6;
+import day0723.TransactionDTO;
 import kr.co.sist.board.BoardDAO;
 import kr.co.sist.board.BoardDomain;
 import kr.co.sist.board.RangeDTO;
@@ -138,7 +140,7 @@ class MyBatisTest {
 		
 	}//selectLikeTest
 	
-	
+	@Disabled
 	@Test
 	void selectTableNameTest() {
 		SelectDAO5 sDAO = SelectDAO5.getInstance();
@@ -180,5 +182,18 @@ class MyBatisTest {
 		});
 	}
 	
+	@Test
+	void day0723SelectTest() {
+		SelectDAO6 sDAO = SelectDAO6.getInstance();
+		assertDoesNotThrow(()->{
+			//sDAO.selectWebMember("test3");
+//			sDAO.selectAllEmpno();
+			TransactionDTO tDTO = new TransactionDTO();
+			tDTO.setName("이름");
+			tDTO.setAddr("주소들어갑니다요주소가 들어가");
+			sDAO.insertTransaction(tDTO);
+			
+		});
+	}
 	
 }// testClass

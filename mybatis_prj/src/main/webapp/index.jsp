@@ -43,8 +43,8 @@ SelectTestDTO[] stArr ={
 						new SelectTestDTO("day0722/dynamicTable","테이블명이 동적일때"),
 						new SelectTestDTO("day0722/dynamicIf","동적 쿼리 if"),
 						new SelectTestDTO("day0722/dynamicChoose","동적 쿼리 choose"),
-						new SelectTestDTO("dynamicSet","동적 쿼리 set"),
-						new SelectTestDTO("dynamicEach","동적 쿼리 each")
+						new SelectTestDTO("day0723/dynamicSet","동적 쿼리 set"),
+						new SelectTestDTO("day0723/dynamicEach","동적 쿼리 each")
 					   };
 pageContext.setAttribute("stArr", stArr);
 %>

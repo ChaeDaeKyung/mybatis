@@ -267,6 +267,7 @@ choose
 					쿼리 조건문
 				</when>
 				<otherwise>
+					쿼리 조건문
 				</otherwise>
 			</choose>
 		</where>
@@ -292,14 +293,83 @@ set
 		</where>
 	</update>
 
-web parameter로 날짜가 입력되면 answkduffh dlqfur
+web parameter로 날짜가 입력되면 문자열에 입력
 	=> DTO에서 String으로만 받아진다. Date로는 받을 수 없다.
 	날짜컬럼명 = #{ 날짜를 가진 getter (String) } 
 		- 데이터형이 일치하지 않는다면 에러가 발행할 수 있다.
 		=> to_date함수를 사용하여 String을 Date로 변경하여 비교
 			날짜컬럼명 = to_date(#{ 날짜를 가진 getter (String) }, '날짜 패턴')
 
-p.122~177 스프링
+foreach
+	- 값을 반복시켜서 쿼리문을 만들 때.
+	- 값은 java.util.List 나 배열로 들어가고 Map을 통해서 MyBatis로 전달하여 사용.
+	<foreach open="시작기호" item="변수명" separator="구분자" close="닫힘기호" collection="map키값">
+		값사용 #{ 변수명 }
+	</foreach>
+
+MyBatis 내부에서 map으로 java.util.Map 객체가 선언이 되어있다.
+	- parameterType으로 map을 사용 할 수 있다.
+
+MyBatis transaction 처리
+	- DAO method안에서만 처리한다.
+	- insert : commit, 예외
+	- update, delete : commit, rollback, 예외
+	if(1번쿼리에서 나온 행수 + 2번퀄이에서 나온 행수 == 목표한 행수){
+		commit;
+	}else{
+		rollback;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
